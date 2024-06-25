@@ -90,6 +90,7 @@ node_modules
 
 # OS X
 .DS_Store
+*.pem
 
 # Test generated files
 *.js.meta
@@ -155,8 +156,10 @@ vendor/
 /packages/react-native/sdks/hermes-engine/hermes-engine-from-local-source-dir.tar.gz
 
 # Visual studio
-.vscode
+.vscode/*
 .vs
+!.vscode/settings.json
+!.vscode/launch.json
 
 # Android memory profiler files
 *.hprof
@@ -171,12 +174,6 @@ vendor/
 # CircleCI
 .circleci/generated_config.yml
 
-# dotenv environment variable files
-# /.env
-# /.env.development
-# /.env.test
-# /.env.production
-
 # macOS generated files
 *_MACOSX
 
@@ -186,3 +183,18 @@ vendor/
 #bundle files
 /.bundle
 
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# typescript
+*.tsbuildinfo

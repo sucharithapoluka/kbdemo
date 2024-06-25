@@ -1,94 +1,139 @@
 import React from 'react';
-import { View, Image, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Feather from 'react-native-vector-icons/Feather';
-import Foundation from 'react-native-vector-icons/Foundation';
-import { StackNavigationProp } from '@react-navigation/stack';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { HeaderProps, HeaderTheme } from '../../models/HeaderProps';
-import { RootStackParamList } from '../../models/RootStackParam';
-import { AppTheme } from '../../styles/AppTheme';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import {
+  HEADER_CROSS_ICON,
+  HEADER_HOME_ICON,
+  KB_LOGO,
+  SINGLE_LEFT_ICON,
+} from '@assets/Svgs';
+import { HeaderTheme } from '@models/Enums';
+import { RootStackParamList } from '@routes/RootStackParam';
+import { AppTheme } from '@styles/AppTheme';
+
+import { HeaderProps } from './HeaderProps';
 
 const Header = (props: HeaderProps) => {
-    const navigation: StackNavigationProp<RootStackParamList> = useNavigation();
-    const iconColor = props.theme != undefined && props.theme == HeaderTheme.transparent ? AppTheme.colors.surface : AppTheme.colors.black;
-    const iconSize = 28;
+  const { width } = Dimensions.get('window');
 
-    return (
-        <View style={[styles.container, { backgroundColor: props.theme == HeaderTheme.white ? AppTheme.colors.surface : '' }]}>
-            {props && props.home && (
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    <Foundation name="home"
-                        size={iconSize}
-                        color={iconColor}
-                        style={styles.icon}
-                    />
-                </TouchableOpacity>
-            )}
-            {props && props.cancelText && (
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text style={styles.cancelText}>Cancel</Text>
-                </TouchableOpacity>
-            )}
-            {props && props.logo && (
-                <Image
-                    source={require('../../assets/kb-logo.png')}
-                    style={styles.logo}
-                    resizeMode="contain"
-                />
-            )}
-            {props && props.menu && (
-                <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-                    <Feather name="menu"
-                        size={iconSize}
-                        color={iconColor}
-                        style={styles.icon}
-                    />
-                </TouchableOpacity>
-            )}
-            {props && props.cancelIcon && (
-                <TouchableOpacity>
-                    <AntDesign name="close"
-                        size={iconSize}
-                        color={AppTheme.colors.black}
-                        onPress={() => navigation.goBack()}
-                        style={styles.icon}
-                    />
-                </TouchableOpacity>
-            )}
-        </View>
+  //TODO: move to common place
+  const getIconSize = () => {
+    if (width > 600) {
+      return 36;
+    } else if (width > 400) {
+      return 32;
+    } else {
+      return 30;
+    }
+  };
 
-    );
+  const navigation: StackNavigationProp<RootStackParamList> = useNavigation();
+  const iconColor =
+    props.theme != undefined && props.theme == HeaderTheme.transparent
+      ? AppTheme.colors.surface
+      : AppTheme.colors.black;
+  const iconSize = getIconSize();
+
+  return (
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor:
+            props.theme == HeaderTheme.white ? AppTheme.colors.surface : '',
+        },
+      ]}
+    >
+      <View style={styles.leftContainer}>
+        {props && props.home && (
+          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <HEADER_HOME_ICON color={iconColor} />
+          </TouchableOpacity>
+        )}
+        {props && props.cancelText && (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={styles.cancelText}>Cancel</Text>
+          </TouchableOpacity>
+        )}
+        {props && props.backIcon && (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <SINGLE_LEFT_ICON />
+          </TouchableOpacity>
+        )}
+      </View>
+      <View style={styles.centerContainer}>
+        {props && props.logo && <KB_LOGO />}
+      </View>
+      <View style={styles.rightContainer}>
+        {props && props.menu && (
+          <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
+            <Ionicons
+              name='menu-outline'
+              size={iconSize}
+              color={iconColor}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        )}
+        {props && props.cancelIcon && (
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <HEADER_CROSS_ICON />
+          </TouchableOpacity>
+        )}
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingBottom: 10
-    },
-    logo: {
-        width: 120,
-        height: 40,
-        marginTop: 10
-    },
-    text: {
-        fontWeight: 'bold',
-        color: AppTheme.colors.surface,
-        fontSize: 16,
-    },
-    cancelText: {
-        fontWeight: 'bold',
-        color: AppTheme.colors.black,
-        fontSize: 16,
-        marginTop: 10
-    },
-    icon: {
-        marginTop: 10
-    }
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 17,
+    paddingBottom: 6,
+  },
+  leftContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
+  centerContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  rightContainer: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  logo: {
+    width: 120,
+    height: 40,
+    marginTop: 10,
+  },
+  text: {
+    fontWeight: 'bold',
+    color: AppTheme.colors.surface,
+    fontSize: 16,
+  },
+  cancelText: {
+    fontWeight: 'bold',
+    color: AppTheme.colors.black,
+    fontSize: 16,
+    marginTop: 10,
+  },
+  icon: {
+    marginTop: 10,
+  },
 });
 
 export default Header;

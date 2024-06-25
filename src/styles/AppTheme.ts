@@ -1,15 +1,25 @@
-
 export const AppTheme = {
   colors: {
-    primary: '#ffc709',
+    primary: '#fac70a',
     secondary: '#968c83',
     surface: '#ffffff',
     black: '#010c03',
     checked_state: '#0a48f2',
     pagination_dots_background: '#ccc',
-    headerBackground: '#7f756c',
+    header_background: '#7f756c',
     grey: '#f0f0f0',
-    link_Color: "#2836F0",
-    white_smoke: "#F8F8F8"
-  }
+    link_color: '#434ef2',
+    white_smoke: '#F8F8F8',
+    completed_status_background_color: '#dffbed',
+    completed_status_icon_color: '#dffbed',
+    failed_status_background_color: '#f43d3e',
+    failed_status_icon_color: '#fcd5d5',
+    pending_status_background_color: '#ffeac9',
+    dropdown_border_line: '#E0E0E0',
+    complete_status_text_color: '#2ea981',
+    camera_view_first_portion: '#525252',
+    camera_view_second_portion: '#D6D6D6',
+    placeholder_text_color: '#777777',
+    button_shadow_color: '#D3D3D3',
+  },
 };
