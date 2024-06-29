@@ -30,7 +30,7 @@
     "module": "esnext",
     "outDir": "./dist",
     "esModuleInterop": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
